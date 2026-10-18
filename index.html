@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookVault | Book Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="brand"><span>▤</span> BookVault<span class="dot">.</span></div>
+    <p class="menu-label">MAIN MENU</p>
+    <a href="#" class="nav active">▦ &nbsp; Dashboard</a>
+    <a href="#bookSection" class="nav">▤ &nbsp; Book Collection</a>
+    <a href="#bookForm" class="nav">＋ &nbsp; Add New Book</a>
+
+    <div class="sidebar-bottom">
+      <div class="avatar">BV</div>
+      <div><strong>Administrator</strong><small>Book Manager</small></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">LIBRARY MANAGEMENT</p>
+        <h1>Book Dashboard</h1>
+        <p class="subtitle">Manage your collection, one book at a time.</p>
+      </div>
+      <button class="primary-btn" id="addBookBtn">＋ Add Book</button>
+    </header>
+
+    <section class="stats">
+      <article class="stat-card">
+        <div class="stat-icon blue">▤</div>
+        <p>Total Books</p>
+        <h2 id="totalBooks">0</h2>
+        <small>Books in your collection</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon green">✓</div>
+        <p>Available</p>
+        <h2 id="availableBooks">0</h2>
+        <small>Ready to borrow</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon purple">↗</div>
+        <p>Borrowed</p>
+        <h2 id="borrowedBooks">0</h2>
+        <small>Currently checked out</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon orange">▥</div>
+        <p>Categories</p>
+        <h2 id="totalCategories">0</h2>
+        <small>Different genres</small>
+      </article>
+    </section>
+
+    <section class="panel form-panel" id="formPanel" hidden>
+      <div class="section-heading">
+        <div>
+          <h2 id="formTitle">Add New Book</h2>
+          <p>Enter the book details below.</p>
+        </div>
+        <button class="icon-btn" id="closeForm" aria-label="Close form">✕</button>
+      </div>
+
+      <form id="bookForm">
+        <input type="hidden" id="editId">
+
+        <div class="form-grid">
+          <label>Book Title
+            <input id="title" type="text" placeholder="Enter book title" required maxlength="100">
+          </label>
+
+          <label>Author
+            <input id="author" type="text" placeholder="Enter author name" required maxlength="80">
+          </label>
+
+          <label>Category
+            <select id="category" required>
+              <option value="">Select category</option>
+              <option>Technology</option>
+              <option>Science</option>
+              <option>Education</option>
+              <option>Fiction</option>
+              <option>Fantasy</option>
+              <option>Mystery</option>
+              <option>History</option>
+              <option>Biography</option>
+              <option>Business</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Publication Year
+            <input id="year" type="number" min="1" max="2100" placeholder="e.g. 2024" required>
+          </label>
+
+          <label>ISBN
+            <input id="isbn" type="text" placeholder="Optional ISBN" maxlength="20">
+          </label>
+
+          <label>Book Status
+            <select id="status" required>
+              <option value="Available">Available</option>
+              <option value="Borrowed">Borrowed</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="secondary-btn" id="cancelForm">Cancel</button>
+          <button type="submit" class="primary-btn" id="saveBtn">Save Book</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" id="bookSection">
+      <div class="section-heading">
+        <div>
+          <h2>Book Collection</h2>
+          <p>Browse and manage your library records.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <input type="search" id="searchInput" placeholder="⌕  Search by title, author, or ISBN...">
+
+        <select id="filterCategory" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option>Technology</option>
+          <option>Science</option>
+          <option>Education</option>
+          <option>Fiction</option>
+          <option>Fantasy</option>
+          <option>Mystery</option>
+          <option>History</option>
+          <option>Biography</option>
+          <option>Business</option>
+          <option>Other</option>
+        </select>
+
+        <select id="filterStatus" aria-label="Filter by status">
+          <option value="">All Statuses</option>
+          <option>Available</option>
+          <option>Borrowed</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>BOOK DETAILS</th>
+              <th>ISBN</th>
+              <th>CATEGORY</th>
+              <th>YEAR</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="bookTable"></tbody>
+        </table>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">▤</div>
+        <h3>No books found</h3>
+        <p>Add a book to start building your collection.</p>
+      </div>
+
+      <div class="table-footer">
+        <span id="bookCount">Showing 0 books</span>
+        <button class="secondary-btn" id="clearAllBtn">Clear Collection</button>
+      </div>
+    </section>
+
+    <footer>BookVault © 2026 · Book Management System</footer>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+
+</body>
+</html>
